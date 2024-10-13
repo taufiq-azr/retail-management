@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
 @Service
 public class SupplierServiceImpl implements ISupplierService {
 
@@ -68,8 +69,7 @@ public class SupplierServiceImpl implements ISupplierService {
         supplier.setName(supplierDTO.getName());
         supplier.setAddress(supplierDTO.getAddress());
         supplier.setContractDetails(supplierDTO.getContractDetails());
-        supplier.setCreatedAt(supplierDTO.getCreatedAt());
-        supplier.setUpdatedAt(supplierDTO.getUpdatedAt());
+
 
         // Cek apakah ada produk dalam DTO, lalu konversi ke entitas
         if (supplierDTO.getProducts() != null && !supplierDTO.getProducts().isEmpty()) {
@@ -110,7 +110,7 @@ public class SupplierServiceImpl implements ISupplierService {
         supplier.setName(supplierDTO.getName());
         supplier.setAddress(supplierDTO.getAddress());
         supplier.setContractDetails(supplierDTO.getContractDetails());
-        supplier.setUpdatedAt(supplierDTO.getUpdatedAt());
+
 
         // Update produk
         if (supplierDTO.getProducts() != null && !supplierDTO.getProducts().isEmpty()) {
@@ -139,16 +139,23 @@ public class SupplierServiceImpl implements ISupplierService {
 
     @Override
     public void deleteSupplier(Long supplierId) {
+        Supplier supplier = supplierRepository.findById(supplierId)
+                .orElseThrow(() -> new NotFoundException("Supplier Not Found"));
+        supplierRepository.delete(supplier);
 
     }
 
     @Override
     public List<SupplierDTO> getAllSupplier() {
-        return List.of();
+        return supplierRepository.findAll().stream()
+                .map(this::convertSupplierToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public SupplierDTO getSupplierById(Long supplierId) {
-        return null;
+        Supplier supplier = supplierRepository.findById(supplierId).orElseThrow(
+                () -> new NotFoundException("Supplier Not Found"));
+        return convertSupplierToDTO(supplier);
     }
 }

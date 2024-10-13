@@ -104,7 +104,6 @@ public class UserServiceImpl implements IUserService {
         user.setEmail(userDTO.getEmail());
         user.setRole(userDTO.getRole());
         user.setPassword(userDTO.getPassword());
-        user.setUpdatedAt(userDTO.getUpdatedAt());
         userRepository.save(user);
         return convertToDTO(user, false, true); // Update user biasanya tidak melibatkan orders
     }

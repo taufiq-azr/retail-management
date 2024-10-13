@@ -24,14 +24,18 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements IOrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+
+    private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ProductRepository productRepository) {
+        this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
+    }
 
     private OrderDTO convertToDTO(Order order){
         OrderDTO orderDTO = new OrderDTO();
@@ -71,8 +75,7 @@ public class OrderServiceImpl implements IOrderService {
         order.setOrderStatus(orderDTO.getOrderStatus());
         order.setPaymentStatus(orderDTO.getPaymentStatus());
         order.setShippingAddress(orderDTO.getShippingAddress());
-        order.setOrderDate(orderDTO.getOrderDate());
-        order.setUpdatedAt(orderDTO.getUpdatedAt());
+
 
         if (orderDTO.getOrderItems() != null) {
             order.setOrderItems(orderDTO.getOrderItems().stream()
@@ -117,7 +120,7 @@ public class OrderServiceImpl implements IOrderService {
         order.setOrderStatus(orderDTO.getOrderStatus());
         order.setPaymentStatus(orderDTO.getPaymentStatus());
         order.setShippingAddress(orderDTO.getShippingAddress());
-        order.setUpdatedAt(orderDTO.getUpdatedAt());
+
 
         // Update order items
         if (orderDTO.getOrderItems() != null) {
@@ -141,7 +144,7 @@ public class OrderServiceImpl implements IOrderService {
     public void deleteOrder(Long orderId) {
        Order orderDeleted = orderRepository.findById(orderId).orElseThrow(
                ()-> new NotFoundException("Order Not Found !"));
-       orderRepository.deleteById(orderId);
+       orderRepository.delete(orderDeleted);
     }
 
     @Override

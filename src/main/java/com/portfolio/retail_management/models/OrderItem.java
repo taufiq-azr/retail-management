@@ -1,11 +1,13 @@
 package com.portfolio.retail_management.models;
 
+import com.portfolio.retail_management.dto.OrderItemDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,4 +48,6 @@ public class OrderItem {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();;
     }
+
+
 }
