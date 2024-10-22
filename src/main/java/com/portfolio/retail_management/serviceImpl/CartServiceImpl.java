@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CartService implements ICartService {
+public class CartServiceImpl implements ICartService {
 
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public CartService(CartRepository cartRepository, ProductRepository productRepository, UserRepository userRepository) {
+    public CartServiceImpl(CartRepository cartRepository, ProductRepository productRepository, UserRepository userRepository) {
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;

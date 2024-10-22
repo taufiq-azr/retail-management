@@ -10,7 +10,6 @@ import com.portfolio.retail_management.repository.CategoryRepository;
 import com.portfolio.retail_management.repository.ProductRepository;
 import com.portfolio.retail_management.repository.SupplierRepository;
 import com.portfolio.retail_management.service.ICategoryService;
-import org.hibernate.annotations.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryService implements ICategoryService {
+public class CategoryServiceImpl implements ICategoryService {
 
 
     private final CategoryRepository categoryRepository;
@@ -26,7 +25,7 @@ public class CategoryService implements ICategoryService {
     private final ProductRepository productRepository;
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository, SupplierRepository supplierRepository, ProductRepository productRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, SupplierRepository supplierRepository, ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
         this.supplierRepository = supplierRepository;
         this.productRepository = productRepository;
